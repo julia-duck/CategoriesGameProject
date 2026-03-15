@@ -1,4 +1,9 @@
-/** Word categories game */
+/** Word categories game, Takes a list of words from
+ * one category and adds in an imposter word. Asks
+ * the user which word doesn't fit in.
+ * @author Julia Jeng
+ * @author Grace Ding
+ */
 import java.io.*;
 import java.util.*;
 public class CategoriesGame {
