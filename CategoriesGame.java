@@ -26,9 +26,9 @@ public class CategoriesGame {
     public static List<String> readFiles(String filename) {
         List<String> list = new ArrayList<>();
         try {
-            Scanner petp = new Scanner(new File(filename)); //pet parser
-            while (petp.hasNextLine()) {
-                list.add(petp.nextLine());
+            Scanner parser = new Scanner(new File(filename)); //pet parser
+            while (parser.hasNextLine()) {
+                list.add(parser.nextLine());
             }
         }
         catch (FileNotFoundException e) {
