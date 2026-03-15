@@ -3,6 +3,7 @@
  * the user which word doesn't fit in.
  * @author Julia Jeng
  * @author Grace Ding
+ * Collaborators: Zoey Ding
  */
 import java.io.*;
 import java.util.*;
