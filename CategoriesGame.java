@@ -14,11 +14,6 @@ public class CategoriesGame {
     private static int bestStreak;
     public static void main(String[] args) {
         initCategories();
-<<<<<<< HEAD
-        chooseCategories();
-        playGame(5, 2, cat1, cat2); 
-        //duckRecursion();
-=======
 
         boolean playingGame = true;
         while (playingGame)
@@ -33,7 +28,6 @@ public class CategoriesGame {
         }
         System.out.println("Thanks for playing!");
         System.out.println("Your best streak was " + bestStreak + " correct in a row!");
->>>>>>> de4f931e6cf94b495d36fdb9ff792beaa30445f4
     }
 
     /** Sets up categories by reading from files */
@@ -102,11 +96,8 @@ public class CategoriesGame {
      * @param chances, the number of tries the user has
      * @param firstCat list of words in first category
      * @param secCat list of words in second category
-<<<<<<< HEAD
      * Precondition: firstCat and secCat are not null and have at least one word
-=======
      * @return whether or not to continue playing
->>>>>>> de4f931e6cf94b495d36fdb9ff792beaa30445f4
      */
     public static boolean playGame(int numWords, int chances, List<String> firstCat, List<String> secCat) {
         //makes sure words are picked randomly
