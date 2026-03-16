@@ -112,12 +112,19 @@ public class CategoriesGame {
         int tries = 0;
         while (!correct && tries < chances) {
             /** ERROR infinite loop */
-            while (!input.hasNextInt()) { 
-                //input.next(); //should clear?
+            boolean valid = false;
+            int ans = 0;
+            while (!valid) { 
                 System.out.print("Which word doesn't fit in (Type the number): ");
-                //int ans = input.nextInt();
+                if (input.hasNextInt()) {
+                    ans = input.nextInt();
+                    valid = true;
+                }
+                else {
+                    input.next();
+                }
             }
-            int ans = input.nextInt();
+            //int ans = input.nextInt();
             if (ans == imposterIdx) {
                 System.out.println("You guessed correctly!");
                 correct = true;
