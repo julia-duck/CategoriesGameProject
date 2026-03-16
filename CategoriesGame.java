@@ -52,7 +52,7 @@ public class CategoriesGame {
     }
 
     /** Randomly chooses two categories in the names list to pull words from
-     *  @return a two element list containing the names of the two categories chosen
+     *  and modifies Lists cat1 and cat2 to contain the words in these categories
      */
     public static void chooseCategories()
     {
