@@ -3,7 +3,7 @@
  * the user which word doesn't fit in.
  * @author Julia Jeng
  * @author Grace Ding
- * Collaborators: Zoey Ding
+ * Collaborators: Zoey Ding, Kevin Ko
  */
 import java.io.*;
 import java.util.*;
@@ -33,7 +33,7 @@ public class CategoriesGame {
     /** Sets up categories by reading from files */
     public static void initCategories() {
         allCategories = new HashMap<>();
-        categoryNames = Arrays.asList(new String[]{"pets", "cooking", "sports", "summer", "winter", "arts"});
+        categoryNames = Arrays.asList(new String[]{"pets", "cooking", "sports", "summer", "winter", "arts", "travel"});
 
         //add each category to the hashmap
         for (String name : categoryNames)
