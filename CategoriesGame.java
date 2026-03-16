@@ -9,13 +9,11 @@ import java.io.*;
 import java.util.*;
 public class CategoriesGame {
     private static Map<String, List<String>> allCategories;
-    private static List<String> categoryNames;
+    private static List<String> categoryNames, cat1, cat2;
     public static void main(String[] args) {
         initCategories();
-        String[] categories = chooseCategories();
+        chooseCategories();
         //get word lists from chosen categories
-        List<String> cat1 = allCategories.get(categories[0]);
-        List<String> cat2 = allCategories.get(categories[1]);
         playGame(5, 2, cat1, cat2); 
         //duckRecursion();
     }
@@ -56,7 +54,7 @@ public class CategoriesGame {
     /** Randomly chooses two categories in the names list to pull words from
      *  @return a two element list containing the names of the two categories chosen
      */
-    public static String[] chooseCategories()
+    public static void chooseCategories()
     {
         String[] chosenCategories = new String[2];
 
@@ -75,7 +73,8 @@ public class CategoriesGame {
         int randomIdx2 = (int) (Math.random() * categoriesToChoose.size());
         chosenCategories[1] = categoriesToChoose.remove(randomIdx2);
 
-        return chosenCategories;
+        cat1 = allCategories.get(chosenCategories[0]);
+        cat2 = allCategories.get(chosenCategories[1]);
     }
 
     /**Picks two categories and prints game to console
