@@ -10,11 +10,30 @@ import java.util.*;
 public class CategoriesGame {
     private static Map<String, List<String>> allCategories;
     private static List<String> categoryNames, cat1, cat2;
+    private static int streak;
+    private static int bestStreak;
     public static void main(String[] args) {
         initCategories();
+<<<<<<< HEAD
         chooseCategories();
         playGame(5, 2, cat1, cat2); 
         //duckRecursion();
+=======
+
+        boolean playingGame = true;
+        while (playingGame)
+        {
+            chooseCategories();
+            //get word lists from chosen categories
+            playingGame = playGame(5, 2, cat1, cat2); 
+            //duckRecursion();
+            System.out.println("Current streak: " + streak);
+            System.out.println("Best streak: " + bestStreak);
+            System.out.println();
+        }
+        System.out.println("Thanks for playing!");
+        System.out.println("Your best streak was " + bestStreak + " correct in a row!");
+>>>>>>> de4f931e6cf94b495d36fdb9ff792beaa30445f4
     }
 
     /** Sets up categories by reading from files */
@@ -28,6 +47,8 @@ public class CategoriesGame {
             List<String> words = readFiles(name + ".txt");
             allCategories.put(name, words);
         }
+        streak = 0;
+        bestStreak = 0;
     }
 
     /** Reads file into an ArrayList
@@ -81,9 +102,13 @@ public class CategoriesGame {
      * @param chances, the number of tries the user has
      * @param firstCat list of words in first category
      * @param secCat list of words in second category
+<<<<<<< HEAD
      * Precondition: firstCat and secCat are not null and have at least one word
+=======
+     * @return whether or not to continue playing
+>>>>>>> de4f931e6cf94b495d36fdb9ff792beaa30445f4
      */
-    public static void playGame(int numWords, int chances, List<String> firstCat, List<String> secCat) {
+    public static boolean playGame(int numWords, int chances, List<String> firstCat, List<String> secCat) {
         //makes sure words are picked randomly
         Collections.shuffle(firstCat);
         Collections.shuffle(secCat);
@@ -114,12 +139,16 @@ public class CategoriesGame {
             boolean valid = false;
             int ans = 0;
             while (!valid) { 
-                System.out.print("Which word doesn't fit in (Type the number): ");
+                System.out.print("Which word doesn't fit in (Type the number or -1 to quit): ");
                 String in = input.next();
                 try {
                     ans = Integer.parseInt(in);
                     if (ans > 0 && ans <= numWords) {
                         valid = true;
+                    }
+                    else if (ans < 0)
+                    {
+                        return false;
                     }
                     else {
                         System.out.println("Please type a number from 1 to " + numWords);
@@ -129,14 +158,18 @@ public class CategoriesGame {
                 }
             }
             if (ans-1 == imposterIdx) { //account for 0 index
+                streak ++;
+                if (streak > bestStreak) bestStreak = streak;
                 System.out.println("You guessed correctly!");
                 correct = true;
             }
             else {
                 tries++;
+                streak = 0;
                 System.out.println("Incorrect guess. You have " + (chances - tries) + " tries left.");
             }
         }
+        return true;
     }
     /** Shhh no cheating, try it yourself first */
     public static void duckRecursion() {

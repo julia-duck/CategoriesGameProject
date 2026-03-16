@@ -3,6 +3,7 @@
 - [ ] Adventure aspect: players answer questions to move up mountain
 - [ ] Multiplayer functionality: players take turns answering questions, race up
 - [ ] Difficulty score for each category (or easy category and hard category list)
+- [ ] Streak tracker
 
 ## Random ideas
 - [ ] Easter eggs
