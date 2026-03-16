@@ -33,7 +33,7 @@ public class CategoriesGame {
     /** Sets up categories by reading from files */
     public static void initCategories() {
         allCategories = new HashMap<>();
-        categoryNames = Arrays.asList(new String[]{"pets", "cooking", "sports", "summer", "winter"});
+        categoryNames = Arrays.asList(new String[]{"pets", "cooking", "sports", "summer", "winter", "arts"});
 
         //add each category to the hashmap
         for (String name : categoryNames)
@@ -94,10 +94,10 @@ public class CategoriesGame {
     /**Picks two categories and prints game to console
      * @param number of words to give user
      * @param chances, the number of tries the user has
-     * @param firstCat list of words in first category
-     * @param secCat list of words in second category
-     * Precondition: firstCat and secCat are not null and have at least one word
+     * @param firstCat first category words: all but one word comes from here
+     * @param secCat second category words: one imposter word comes from here
      * @return whether or not to continue playing
+     * Precondition: firstCat and secCat are not null and have at least one word
      */
     public static boolean playGame(int numWords, int chances, List<String> firstCat, List<String> secCat) {
         //makes sure words are picked randomly
