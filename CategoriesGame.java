@@ -16,8 +16,8 @@ public class CategoriesGame {
         //get word lists from chosen categories
         List<String> cat1 = allCategories.get(categories[0]);
         List<String> cat2 = allCategories.get(categories[1]);
-        //playGame(5, 2, cat1, cat2); 
-        duckRecursion();
+        playGame(5, 2, cat1, cat2); 
+        //duckRecursion();
     }
 
     /** Sets up categories by reading from files */
@@ -99,7 +99,6 @@ public class CategoriesGame {
         int imposterIdx = (int)(Math.random()*words);
 
         //Pick words 
-        /** ERROR skips like 2 indexes?? */
         for (int i = 0; i < words; i++) {
             if (i != imposterIdx) {
                 System.out.println(i+1 + ": " + firstCat.get(i));
@@ -111,22 +110,26 @@ public class CategoriesGame {
         }
         boolean correct = false;
         int tries = 0;
+        //This loop allows user to keep guessing
         while (!correct && tries < chances) {
-            /** ERROR infinite loop */
             boolean valid = false;
             int ans = 0;
             while (!valid) { 
                 System.out.print("Which word doesn't fit in (Type the number): ");
-                if (input.hasNextInt()) {
-                    ans = input.nextInt();
-                    valid = true;
-                }
-                else {
-                    input.next();
+                String in = input.next();
+                try {
+                    ans = Integer.parseInt(in);
+                    if (ans > 0 && ans <= numWords) {
+                        valid = true;
+                    }
+                    else {
+                        System.out.println("Please type a number from 1 to " + numWords);
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Please type a valid number.");
                 }
             }
-            //int ans = input.nextInt();
-            if (ans == imposterIdx) {
+            if (ans-1 == imposterIdx) { //account for 0 index
                 System.out.println("You guessed correctly!");
                 correct = true;
             }
