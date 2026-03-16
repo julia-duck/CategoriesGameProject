@@ -33,7 +33,7 @@ public class CategoriesGame {
     /** Sets up categories by reading from files */
     public static void initCategories() {
         allCategories = new HashMap<>();
-        categoryNames = Arrays.asList(new String[]{"pets", "cooking", "sports"});
+        categoryNames = Arrays.asList(new String[]{"pets", "cooking", "sports", "summer", "winter"});
 
         //add each category to the hashmap
         for (String name : categoryNames)
