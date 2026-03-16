@@ -13,7 +13,6 @@ public class CategoriesGame {
     public static void main(String[] args) {
         initCategories();
         chooseCategories();
-        //get word lists from chosen categories
         playGame(5, 2, cat1, cat2); 
         //duckRecursion();
     }
@@ -82,6 +81,7 @@ public class CategoriesGame {
      * @param chances, the number of tries the user has
      * @param firstCat list of words in first category
      * @param secCat list of words in second category
+     * Precondition: firstCat and secCat are not null and have at least one word
      */
     public static void playGame(int numWords, int chances, List<String> firstCat, List<String> secCat) {
         //makes sure words are picked randomly
