@@ -1,6 +1,8 @@
-Amphitheater
+Amphitheatre
 Orchestra
-Band
+Ensemble
+Winds
+Brass
 Choir
 Classical
 Jazz

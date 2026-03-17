@@ -14,7 +14,6 @@ public class CategoriesGame {
     private static int bestStreak;
     public static void main(String[] args) {
         initCategories();
-
         boolean playingGame = true;
         while (playingGame)
         {
@@ -33,13 +32,15 @@ public class CategoriesGame {
     /** Sets up categories by reading from files */
     public static void initCategories() {
         allCategories = new HashMap<>();
-        categoryNames = Arrays.asList(new String[]{"pets", "cooking", "sports", "summer", "winter", "arts", "travel"});
+        categoryNames = Arrays.asList(new String[]{"pets", "cooking", "sports", "summer", "winter", "arts", "travel", "teamspirit"});
 
         //add each category to the hashmap
         for (String name : categoryNames)
         {
             List<String> words = readFiles(name + ".txt");
-            allCategories.put(name, words);
+            if (words != null) {
+                allCategories.put(name, words);
+            }
         }
         streak = 0;
         bestStreak = 0;
@@ -56,11 +57,18 @@ public class CategoriesGame {
             while (fileScanner.hasNextLine()) {
                 list.add(fileScanner.nextLine());
             }
+            if (list.isEmpty()) {
+                throw new Exception("Empty list found!");
+            }
             return list;
         }
         catch (FileNotFoundException e) {
             System.out.println("File " + filename + " was not found.");
             //note: right now other code may break if this happens
+            return null;
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
             return null;
         }
     }
