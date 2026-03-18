@@ -32,7 +32,7 @@ public class CategoriesGame {
     /** Sets up categories by reading from files */
     public static void initCategories() {
         allCategories = new HashMap<>();
-        categoryNames = Arrays.asList(new String[]{"pets", "cooking", "sports", "summer", "winter", "arts", "travel", "teamspirit"});
+        categoryNames = Arrays.asList(new String[]{"pets", "cooking", "sports", "summer", "winter", "arts", "travel", "teamspirit", "composers", "pasta"});
 
         //add each category to the hashmap
         for (String name : categoryNames)
@@ -79,12 +79,15 @@ public class CategoriesGame {
     public static void chooseCategories()
     {
         String[] chosenCategories = new String[2];
+        List<String> dontInclude = Arrays.asList(new String[]{"composers", "pasta"});
 
         //clone category names list so that names can safely be removed
         List<String> categoriesToChoose = new ArrayList<>();
         for (String name : categoryNames)
         {
-            categoriesToChoose.add(name);
+            if (!dontInclude.contains(name)) {
+                categoriesToChoose.add(name);
+            }
         }
         
         //choose first category
@@ -100,13 +103,20 @@ public class CategoriesGame {
     }
 
     /** Overloaded chooseCategories method
+     * Instantiates cat1 and cat2 to specified categories
      * @param category1, name of the first category (without .txt)
      * @param category2, name of the second category
-     * Instantiates cat1 and cat2 to specified categories
+     * @return true or false if the categories were initialized
      */
-    public static void chooseCategories(String category1, String category2) {
-        cat1 = allCategories.get(category1);
-        cat2 = allCategories.get(category2);
+    public static boolean chooseCategories(String category1, String category2) {
+        if (allCategories.containsKey(category1) && allCategories.containsKey(category2)) {
+            cat1 = allCategories.get(category1);
+            cat2 = allCategories.get(category2);
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     /**Picks two categories and prints game to console
@@ -176,6 +186,9 @@ public class CategoriesGame {
                 tries++;
                 streak = 0;
                 System.out.println("Incorrect guess. You have " + (chances - tries) + " tries left.");
+                if (chances-tries == 0) {
+                    System.out.println("The correct answer is " + (imposterIdx + 1) + ", " +  secCat.get(0));
+                }
             }
         }
         return true;
