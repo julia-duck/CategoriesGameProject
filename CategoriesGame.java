@@ -99,6 +99,16 @@ public class CategoriesGame {
         cat2 = allCategories.get(chosenCategories[1]);
     }
 
+    /** Overloaded chooseCategories method
+     * @param category1, name of the first category (without .txt)
+     * @param category2, name of the second category
+     * Instantiates cat1 and cat2 to specified categories
+     */
+    public static void chooseCategories(String category1, String category2) {
+        cat1 = allCategories.get(category1);
+        cat2 = allCategories.get(category2);
+    }
+
     /**Picks two categories and prints game to console
      * @param number of words to give user
      * @param chances, the number of tries the user has
