@@ -29,16 +29,21 @@ public class CategoriesGame {
         System.out.println("Your best streak was " + bestStreak + " correct in a row!");
     }
 
-    /** Sets up categories by reading from files */
+    /** Sets up/initializes categories by reading from files */
     public static void initCategories() {
         allCategories = new HashMap<>();
-        categoryNames = Arrays.asList(new String[]{"pets", "cooking", "sports", "summer", "winter", "arts", "travel", "teamspirit", "composers", "pasta"});
+        //new File object of current working directory
+        File categories = new File(".");
+        //Creates list of files in the directory that end with .txt
+        File[] txtFiles = categories.listFiles(file -> file.getName().endsWith(".txt"));
 
         //add each category to the hashmap
-        for (String name : categoryNames)
+        for (File fl : txtFiles)
         {
-            List<String> words = readFiles(name + ".txt");
+            String name = fl.getName();
+            List<String> words = readFiles(name);
             if (words != null) {
+                categoryNames.add(name);
                 allCategories.put(name, words);
             }
         }
@@ -47,7 +52,7 @@ public class CategoriesGame {
     }
 
     /** Reads file into an ArrayList
-     * @param name of text file
+     * @param name of text file (.txt)
      * @return ArrayList of words from file
      */
     public static List<String> readFiles(String filename) {
@@ -64,7 +69,6 @@ public class CategoriesGame {
         }
         catch (FileNotFoundException e) {
             System.out.println("File " + filename + " was not found.");
-            //note: right now other code may break if this happens
             return null;
         }
         catch (Exception e) {
