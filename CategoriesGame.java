@@ -10,17 +10,17 @@ import java.util.*;
 public class CategoriesGame {
     private static Map<String, List<String>> allCategories;
     private static List<String> categoryNames, cat1, cat2;
-    private static int streak;
-    private static int bestStreak;
+    //indexes represent player number
+    private static List<Player> players;
     public static void main(String[] args) {
         initCategories();
+        setUpPlayers();
         boolean playingGame = true;
         while (playingGame)
         {
             chooseCategories();
             //get word lists from chosen categories
             playingGame = playGame(5, 2, cat1, cat2); 
-            //duckRecursion();
             System.out.println("Current streak: " + streak);
             System.out.println("Best streak: " + bestStreak);
             System.out.println();
@@ -49,6 +49,14 @@ public class CategoriesGame {
         }
         streak = 0;
         bestStreak = 0;
+    }
+
+    /**Introduces player to game, initializes player number 
+     * and instantiates player objects, adding them to the ArrayList
+    */
+    public static void setUpPlayers() {
+        Scanner userInput = new Scanner(System.in);
+        
     }
 
     /** Reads file into an ArrayList
@@ -125,13 +133,14 @@ public class CategoriesGame {
 
     /**Picks two categories and prints game to console
      * @param number of words to give user
-     * @param chances, the number of tries the user has
+     * @param chances the number of tries the user has
      * @param firstCat first category words: all but one word comes from here
      * @param secCat second category words: one imposter word comes from here
+     * @param playerIdx the index in the players array where the player object is
      * @return whether or not to continue playing
      * Precondition: firstCat and secCat are not null and have at least one word
      */
-    public static boolean playGame(int numWords, int chances, List<String> firstCat, List<String> secCat) {
+    public static boolean playGame(int numWords, int chances, List<String> firstCat, List<String> secCat, int playerIdx) {
         //makes sure words are picked randomly
         Collections.shuffle(firstCat);
         Collections.shuffle(secCat);
@@ -197,7 +206,8 @@ public class CategoriesGame {
         }
         return true;
     }
-    /** Shhh no cheating, try it yourself first */
+
+    /** HIDDEN DUCK RECURSION HAHAHAHA */
     public static void duckRecursion() {
         Scanner input = new Scanner(System.in);
         String ans = "01101000 01101001 01100100 01100100 01100101 01101110 00100000 01100010 01100001 01110011 01100101 00100000 01100011 01100001 01110011 01100101";
