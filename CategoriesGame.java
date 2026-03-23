@@ -38,6 +38,7 @@ public class CategoriesGame {
         File[] txtFiles = categories.listFiles(file -> file.getName().endsWith(".txt"));
 
         //add each category to the hashmap
+        categoryNames = new ArrayList<String>();
         for (File fl : txtFiles)
         {
             String name = fl.getName();
