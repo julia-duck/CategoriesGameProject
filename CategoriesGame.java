@@ -10,23 +10,23 @@ import java.util.*;
 public class CategoriesGame {
     private static Map<String, List<String>> allCategories;
     private static List<String> categoryNames, cat1, cat2;
-    private static int streak;
-    private static int bestStreak;
+    //indexes represent player number
+    private static List<Player> players;
     public static void main(String[] args) {
         initCategories();
+        setUpPlayers();
         boolean playingGame = true;
         while (playingGame)
         {
             chooseCategories();
             //get word lists from chosen categories
-            playingGame = playGame(5, 2, cat1, cat2); 
-            //duckRecursion();
-            System.out.println("Current streak: " + streak);
+            playingGame = playGame(5, 2, cat1, cat2, 0); 
+            /*System.out.println("Current streak: " + streak);
             System.out.println("Best streak: " + bestStreak);
-            System.out.println();
+            System.out.println();*/
         }
         System.out.println("Thanks for playing!");
-        System.out.println("Your best streak was " + bestStreak + " correct in a row!");
+        //System.out.println("Your best streak was " + bestStreak + " correct in a row!");
     }
 
     /** Sets up/initializes categories by reading from files */
@@ -50,6 +50,46 @@ public class CategoriesGame {
         }
         streak = 0;
         bestStreak = 0;
+    }
+
+    /**Introduces player to game, initializes player number 
+     * and instantiates player objects, adding them to the ArrayList
+    */
+    public static void setUpPlayers() {
+        Scanner userInput = new Scanner(System.in);
+        System.out.println("WELCOME TO THE CATEGORIES GAME BY GRACE AND JULIA!");
+        System.out.println("The goal of this game is to make it to the top of the mountain first!");
+        System.out.println("To get to the top, you must correctly answer questions by");
+        System.out.println("determining the word that doesn't fit in. But beware, there might be");
+        System.out.println("some mishaps along your journey!");
+        System.out.println("----------------------------------------------------------------------");
+        boolean valid = false;
+        int playerNum = 0;
+        while (!valid) {
+            System.out.print("How many players (1-10): ");
+            String ans = userInput.next();
+            try {
+                playerNum = Integer.parseInt(ans);
+                if (playerNum < 1 || playerNum > 10) {
+                    throw new Exception("outOfRange");
+                }
+                valid = true;
+            }
+            catch(Exception e) {
+                if (e.getMessage().equals("outOfRange")) {
+                    System.out.println("Please enter a number from 1-10");
+                }
+                else {
+                    System.out.println("Please enter a valid number.");
+                }
+            }
+        }
+        for (int i = 0; i < playerNum; i++) {
+            System.out.print("Enter player name: ");
+            String name = userInput.nextLine();
+            players.add(new Player(name));
+        }
+
     }
 
     /** Reads file into an ArrayList
@@ -126,13 +166,16 @@ public class CategoriesGame {
 
     /**Picks two categories and prints game to console
      * @param number of words to give user
-     * @param chances, the number of tries the user has
+     * @param chances the number of tries the user has
      * @param firstCat first category words: all but one word comes from here
      * @param secCat second category words: one imposter word comes from here
+     * @param playerIdx the index in the players array where the player object is
      * @return whether or not to continue playing
      * Precondition: firstCat and secCat are not null and have at least one word
      */
-    public static boolean playGame(int numWords, int chances, List<String> firstCat, List<String> secCat) {
+    public static boolean playGame(int numWords, int chances, List<String> firstCat, List<String> secCat, int playerIdx) {
+        Player curPlayer = players.get(playerIdx);
+
         //makes sure words are picked randomly
         Collections.shuffle(firstCat);
         Collections.shuffle(secCat);
@@ -182,14 +225,14 @@ public class CategoriesGame {
                 }
             }
             if (ans-1 == imposterIdx) { //account for 0 index
-                streak ++;
-                if (streak > bestStreak) bestStreak = streak;
+                curPlayer.streak ++;
+                if (curPlayer.getCurrentStreak() > curPlayer.getBestStreak()) curPlayer.getbestStreak() = curPlayer.getCurrentStreak();
                 System.out.println("You guessed correctly!");
                 correct = true;
             }
             else {
                 tries++;
-                streak = 0;
+                curPlayer.getCurrentStreak() = 0;
                 System.out.println("Incorrect guess. You have " + (chances - tries) + " tries left.");
                 if (chances-tries == 0) {
                     System.out.println("The correct answer is " + (imposterIdx + 1) + ", " +  secCat.get(0));
@@ -198,7 +241,8 @@ public class CategoriesGame {
         }
         return true;
     }
-    /** Shhh no cheating, try it yourself first */
+
+    /** HIDDEN DUCK RECURSION HAHAHAHA */
     public static void duckRecursion() {
         Scanner input = new Scanner(System.in);
         String ans = "01101000 01101001 01100100 01100100 01100101 01101110 00100000 01100010 01100001 01110011 01100101 00100000 01100011 01100001 01110011 01100101";
