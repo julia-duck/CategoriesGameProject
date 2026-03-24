@@ -48,8 +48,8 @@ public class CategoriesGame {
                 allCategories.put(name, words);
             }
         }
-        streak = 0;
-        bestStreak = 0;
+        //streak = 0;
+        //bestStreak = 0;
     }
 
     /**Introduces player to game, initializes player number 
@@ -65,6 +65,7 @@ public class CategoriesGame {
         System.out.println("----------------------------------------------------------------------");
         boolean valid = false;
         int playerNum = 0;
+        players = new ArrayList<>();
         while (!valid) {
             System.out.print("How many players (1-10): ");
             String ans = userInput.next();
@@ -84,6 +85,8 @@ public class CategoriesGame {
                 }
             }
         }
+        //
+        userInput.nextLine();
         for (int i = 0; i < playerNum; i++) {
             System.out.print("Enter player name: ");
             String name = userInput.nextLine();
@@ -225,14 +228,13 @@ public class CategoriesGame {
                 }
             }
             if (ans-1 == imposterIdx) { //account for 0 index
-                curPlayer.streak ++;
-                if (curPlayer.getCurrentStreak() > curPlayer.getBestStreak()) curPlayer.getbestStreak() = curPlayer.getCurrentStreak();
+                curPlayer.updateScore(true);
                 System.out.println("You guessed correctly!");
                 correct = true;
             }
             else {
                 tries++;
-                curPlayer.getCurrentStreak() = 0;
+                curPlayer.updateScore(false);
                 System.out.println("Incorrect guess. You have " + (chances - tries) + " tries left.");
                 if (chances-tries == 0) {
                     System.out.println("The correct answer is " + (imposterIdx + 1) + ", " +  secCat.get(0));
