@@ -15,12 +15,25 @@ public class CategoriesGame {
     public static void main(String[] args) {
         initCategories();
         setUpPlayers();
+        int playerNum = players.size();
+        System.out.println();
+
         boolean playingGame = true;
+        int curPlayerIdx = 0;
         while (playingGame)
         {
             chooseCategories();
             //get word lists from chosen categories
-            playingGame = playGame(5, 2, cat1, cat2, 0); 
+            playingGame = playGame(5, 2, cat1, cat2, curPlayerIdx);
+            
+            //switch player (if applicable)
+            curPlayerIdx ++;
+            if (curPlayerIdx >= playerNum)
+            {
+                curPlayerIdx = 0;
+            }
+            
+            System.out.println();
             /*System.out.println("Current streak: " + streak);
             System.out.println("Best streak: " + bestStreak);
             System.out.println();*/
@@ -178,6 +191,7 @@ public class CategoriesGame {
      */
     public static boolean playGame(int numWords, int chances, List<String> firstCat, List<String> secCat, int playerIdx) {
         Player curPlayer = players.get(playerIdx);
+        System.out.println(curPlayer.getName() + "'s turn: ");
 
         //makes sure words are picked randomly
         Collections.shuffle(firstCat);
@@ -241,6 +255,7 @@ public class CategoriesGame {
                 }
             }
         }
+        System.out.println(curPlayer.getName() + "'s total score: " + curPlayer.getTotalScore());
         return true;
     }
 
