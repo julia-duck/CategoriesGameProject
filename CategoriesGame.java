@@ -88,7 +88,7 @@ public class CategoriesGame {
         //
         userInput.nextLine();
         for (int i = 0; i < playerNum; i++) {
-            System.out.print("Enter player name: ");
+            System.out.print("Enter player " + (i + 1) + "'s name: ");
             String name = userInput.nextLine();
             players.add(new Player(name));
         }
@@ -127,7 +127,7 @@ public class CategoriesGame {
     public static void chooseCategories()
     {
         String[] chosenCategories = new String[2];
-        List<String> dontInclude = Arrays.asList(new String[]{"composers", "pasta"});
+        List<String> dontInclude = Arrays.asList(new String[]{"composers.txt", "pasta.txt"});
 
         //clone category names list so that names can safely be removed
         List<String> categoriesToChoose = new ArrayList<>();
