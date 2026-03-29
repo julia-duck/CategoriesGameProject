@@ -9,7 +9,8 @@ import java.io.*;
 import java.util.*;
 public class CategoriesGame {
     private static Map<String, List<String>> allCategories;
-    private static List<String> categoryNames, cat1, cat2;
+    private static List<String> categoryNames;
+    private static String cat1, cat2;
     //indexes represent player number
     private static List<Player> players;
     public static void main(String[] args) {
@@ -24,7 +25,7 @@ public class CategoriesGame {
         {
             chooseCategories();
             //get word lists from chosen categories
-            playingGame = playGame(5, 2, cat1, cat2, curPlayerIdx);
+            playingGame = playGame(5, 2, curPlayerIdx);
             
             //switch player (if applicable)
             curPlayerIdx ++;
@@ -66,8 +67,8 @@ public class CategoriesGame {
             String name = fl.getName();
             List<String> words = readFiles(name);
             if (words != null) {
-                categoryNames.add(name);
-                allCategories.put(name, words);
+                categoryNames.add(name.substring(0, name.length()-4));
+                allCategories.put(name.substring(0, name.length()-4), words);
             }
         }
     }
@@ -147,7 +148,7 @@ public class CategoriesGame {
     public static void chooseCategories()
     {
         String[] chosenCategories = new String[2];
-        List<String> dontInclude = Arrays.asList(new String[]{"composers.txt", "pasta.txt"});
+        List<String> dontInclude = Arrays.asList(new String[]{"composers", "pasta"});
 
         //clone category names list so that names can safely be removed
         List<String> categoriesToChoose = new ArrayList<>();
@@ -166,8 +167,8 @@ public class CategoriesGame {
         int randomIdx2 = (int) (Math.random() * categoriesToChoose.size());
         chosenCategories[1] = categoriesToChoose.remove(randomIdx2);
 
-        cat1 = allCategories.get(chosenCategories[0]);
-        cat2 = allCategories.get(chosenCategories[1]);
+        cat1 = chosenCategories[0];
+        cat2 = chosenCategories[1];
     }
 
     /** Overloaded chooseCategories method
@@ -178,8 +179,8 @@ public class CategoriesGame {
      */
     public static boolean chooseCategories(String category1, String category2) {
         if (allCategories.containsKey(category1) && allCategories.containsKey(category2)) {
-            cat1 = allCategories.get(category1);
-            cat2 = allCategories.get(category2);
+            cat1 = category1;
+            cat2 = category2;
             return true;
         }
         else {
@@ -190,13 +191,13 @@ public class CategoriesGame {
     /**Picks two categories and prints game to console
      * @param number of words to give user
      * @param chances the number of tries the user has
-     * @param firstCat first category words: all but one word comes from here
-     * @param secCat second category words: one imposter word comes from here
      * @param playerIdx the index in the players array where the player object is
      * @return whether or not to continue playing
-     * Precondition: firstCat and secCat are not null and have at least one word
+     * firstCat is main category, secondCat is imposter category
      */
-    public static boolean playGame(int numWords, int chances, List<String> firstCat, List<String> secCat, int playerIdx) {
+    public static boolean playGame(int numWords, int chances, int playerIdx) {
+        List<String> firstCat = allCategories.get(cat1);
+        List<String> secCat = allCategories.get(cat2);
         Player curPlayer = players.get(playerIdx);
         System.out.println(curPlayer.getName() + "'s turn: ");
 
@@ -259,6 +260,7 @@ public class CategoriesGame {
                 System.out.println("Incorrect guess. You have " + (chances - tries) + " tries left.");
                 if (chances-tries == 0) {
                     System.out.println("The correct answer is " + (imposterIdx + 1) + ", " +  secCat.get(0));
+                    System.out.println("Main category: " + cat1 + "\nImposter category: " + cat2);
                 }
             }
         }
