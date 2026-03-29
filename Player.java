@@ -1,7 +1,7 @@
 /**
  * Player class stores/handles a game player's stats
  */
-public class Player
+public class Player implements Comparable<Player>
 {
     private String name;
     private int score;
@@ -69,4 +69,23 @@ public class Player
     {
         return bestStreak;
     }
+
+    /** @return String with player's name, score, and streak */
+    @Override
+    public String toString() {
+        return name + "\n-------------------\nScore: " + score + "\nBest Streak: " + bestStreak;
+    }
+
+    /** Compares players based on score 
+     * @return integer:
+     *      Positive if this < other
+     *      Equal if this == other
+     *      Negative if this > other
+     * Sorts in descending order, highest score first
+    */
+    @Override
+    public int compareTo(Player other) {
+        return other.score - score;
+    }
+
 }

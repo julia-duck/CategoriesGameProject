@@ -34,12 +34,21 @@ public class CategoriesGame {
             }
             
             System.out.println();
-            /*System.out.println("Current streak: " + streak);
-            System.out.println("Best streak: " + bestStreak);
-            System.out.println();*/
         }
         System.out.println("Thanks for playing!");
-        //System.out.println("Your best streak was " + bestStreak + " correct in a row!");
+        Collections.sort(players);
+        for (int i = 0; i < players.size(); i++) {
+            System.out.println();
+            String ending;
+            switch (i) {
+                case 0: ending = "st"; break;
+                case 1: ending = "nd"; break;
+                case 2: ending = "rd"; break;
+                default: ending = "th";
+            }
+            System.out.println(i+1 + ending + " Place: " + players.get(i));
+        }
+        
     }
 
     /** Sets up/initializes categories by reading from files */
@@ -51,7 +60,7 @@ public class CategoriesGame {
         File[] txtFiles = categories.listFiles(file -> file.getName().endsWith(".txt"));
 
         //add each category to the hashmap
-        categoryNames = new ArrayList<String>();
+        categoryNames = new ArrayList<>();
         for (File fl : txtFiles)
         {
             String name = fl.getName();
@@ -61,8 +70,6 @@ public class CategoriesGame {
                 allCategories.put(name, words);
             }
         }
-        //streak = 0;
-        //bestStreak = 0;
     }
 
     /**Introduces player to game, initializes player number 
